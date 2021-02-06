@@ -5,7 +5,7 @@
         <mdb-card>
           <mdb-card-body cascade>
             <h5 class="blue-text pb-2 pt-1">
-              <mdb-icon icon="globe-americas" /> CASES BY COUNTRY
+              <mdb-icon icon="globe-americas" /> RECENT UPDATE CASES BY COUNTRY
             </h5>
           </mdb-card-body>
         </mdb-card>
