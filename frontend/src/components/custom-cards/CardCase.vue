@@ -1,5 +1,5 @@
 <template>
-  <mdb-card wide>
+  <mdb-card class="m-2">
     <mdb-view hover cascade>
       <a href="#!">
         <mdb-card-image

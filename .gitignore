@@ -3,6 +3,7 @@
 
 # === backend ignore ===
 /backend/node_modules
+/backend/.idea
 
 # === frontend ignore ===
 /frontend/.DS_Store

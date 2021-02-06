@@ -2,7 +2,9 @@
   <mdb-container>
     <mdb-row>
       <mdb-card class="m-auto">
-        <h3 class="m-4"><mdb-badge color="primary">Hello Nice to meet you !</mdb-badge></h3>
+        <mdb-col sm="12" class="p-3">
+          <h3 class="my-3 m-auto"><mdb-badge color="primary">Hello Nice to meet you !</mdb-badge></h3>
+        </mdb-col>
         <mdb-card-image
           :src="profile.imageProfile"
           alt="Google Image"
@@ -19,6 +21,7 @@
 </template>
 <script>
 export default {
+  name: 'Account',
   data() {
     return {
       profile: {
