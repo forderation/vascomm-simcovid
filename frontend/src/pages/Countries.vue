@@ -17,6 +17,7 @@
         :key="country.ID"
         :id="country.ID"
         :nameCountry="country.Country"
+        :countryCode="country.CountryCode"
         :confirmed="country.TotalConfirmed"
         :recovered="country.TotalRecovered"
         data-aos="fade-up"

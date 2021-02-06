@@ -57,6 +57,10 @@ export default {
       type: Number,
       required: true,
     },
+    countryCode: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>
