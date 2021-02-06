@@ -1,5 +1,7 @@
 {
   "env": {
-    "BASE_URL": "https://api.covid19api.com/"
+    "BASE_URL": "https://api.covid19api.com/",
+    "CLIENT_ID" : "703032310909-i6sv1s6lao0ao1ul9ll9oqeunslgvilh.apps.googleusercontent.com",
+    "CLIENT_SECRET" : "eSoA9Jn5U1Xl_DH0jTs6ceqc"
   }
 }
