@@ -43,7 +43,7 @@ npm install / yarn
 npm run dev 
 
 # serve frontend at localhost:8080
-npm run dev 
+npm run serve 
 
 # build for production with minification
 npm run build / yarn build
