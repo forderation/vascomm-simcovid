@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const casesRoutes =require('./routes/cases-routes');
 const countryRoutes =require('./routes/country-routes');
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use((_, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -17,7 +18,6 @@ app.use((_, res, next) => {
 
 app.use("/api/cases", casesRoutes);
 app.use("/api/country", countryRoutes);
-
 app.use((err, req, res, next) => {
     if (res.headerSent) {
         return next(err);
@@ -25,8 +25,6 @@ app.use((err, req, res, next) => {
     res.status(err.code || 500);
     res.json({ message: err.message || "An unknown error occurred" });
 });
-
-
 app.use((_, res, _3) => {
     return res.json({message: "Couldn't find this route", status: 404});
 });

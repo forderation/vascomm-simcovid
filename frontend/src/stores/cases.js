@@ -11,7 +11,8 @@ const casesModule = {
         },
         countries: [],
         isSummaryLoaded: false,
-        statusCode: null
+        error: null,
+        maxLength: -1
     },
     getters: {
         summaryCasesWorld: (state) => {
@@ -20,21 +21,20 @@ const casesModule = {
         countryCases: (state) => {
             return state.countries;
         },
-        countryCasesLimit: (state) => (start, end) => {
-            return state.countries.slice(start, end)
-        },
         isSummaryLoaded: (state) => {
             return state.isSummaryLoaded
         },
-        statusCode: (state) => {
-            return state.statusCode
+        stateError: (state) => {
+            return state.error
+        },
+        maxLength: (state) => {
+            return state.maxLength
         }
     },
     mutations: {
         setCasesWorld(state, payload) {
             const global = payload.global
             state.summaryCasesWorld.dateUpdate = global.HumanDate
-            state.countries = payload.countries
             state.summaryCasesWorld.confirmed = [
                 {
                     id: uuidv4(),
@@ -72,15 +72,24 @@ const casesModule = {
                 },
             ]
         },
+        setCountries(state, payload) {
+            state.countries = state.countries.concat(payload.countries);
+            state.maxLength = payload.length
+        },
+        resetStateCountries(state) {
+            state.countries = [];
+            state.maxLength = -1
+            state.isSummaryLoaded = false;
+        },
         setSummaryLoaded(state, payload) {
             state.isSummaryLoaded = payload.status;
         },
-        setStatusCode(state, payload) {
-            state.statusCode = payload.status;
+        setError(state, payload) {
+            state.error = payload.status;
         }
     },
     actions: {
-        loadCasesWorld({ commit }) {
+        loadSummaryCases({ commit }) {
             commit('setSummaryLoaded', { status: false })
             return $axios
                 .get('/cases/summaries')
@@ -88,11 +97,31 @@ const casesModule = {
                 .then(items => {
                     commit('setCasesWorld', items)
                 }).catch(error => {
-                    commit('setStatusCode', { status: error.response.status })
+                    commit('setError', { status: error })
                 }).finally(() => {
                     commit('setSummaryLoaded', { status: true })
                 })
-        }
+        },
+        loadCountries({ commit, getters }, payload) {
+            const startIndex = payload.start
+            const endIndex = payload.end
+            const maxLength = getters.maxLength
+            console.log(maxLength + "endIndex " + endIndex)
+            if ((maxLength === -1 || endIndex <= maxLength) && getters.isSummaryLoaded) {
+                commit('setSummaryLoaded', { status: false })
+                return $axios
+                    .get(`/country/countries?start=${startIndex}&end=${endIndex}`)
+                    .then((response) => response.data)
+                    .then((items) => {
+                        commit('setCountries', items)
+                    }).catch((error) => {
+                        commit('setError', { status: error })
+                    }).finally(() => {
+                        commit('setSummaryLoaded', { status: true })
+                    })
+            }
+
+        },
     },
 }
 

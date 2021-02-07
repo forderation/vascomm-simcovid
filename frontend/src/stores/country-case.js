@@ -83,7 +83,7 @@ const countryCaseModule = {
         loadCase({ commit, getters }) {
             commit('setLoading', { cases: false })
             return $axios
-                .get('/cases/country/' + getters.getCountryCode)
+                .get('/country/cases/' + getters.getCountryCode)
                 .then(response => response.data)
                 .then(items => {
                     commit('setCases', items)
@@ -103,7 +103,6 @@ const countryCaseModule = {
                     commit('setSummary', items)
                 })
                 .catch(error => {
-                    console.log("error status: " + error)
                     commit('setCountryCaseStatus', { summary: error })
                 })
                 .finally(() => commit('setLoading', { summary: true }))

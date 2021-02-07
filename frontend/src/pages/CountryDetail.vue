@@ -75,7 +75,6 @@ export default {
   },
   computed: {
     getIsLoaded() {
-      console.log(this.$store.getters.getIsLoadedCase);
       return this.$store.getters.getIsLoadedCase;
     },
     getSummary() {

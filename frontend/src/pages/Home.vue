@@ -72,7 +72,6 @@ export default {
   methods: {
     initDataCharts() {
       const summaryCasesWorld = this.$store.getters.summaryCasesWorld;
-      console.log(summaryCasesWorld);
       this.dataCharts.push({
         title: "New Cases",
         dataChart: {
@@ -92,7 +91,7 @@ export default {
     },
   },
   async mounted() {
-    await this.$store.dispatch("loadCasesWorld");
+    await this.$store.dispatch("loadSummaryCases");
     this.initDataCharts();
   },
 };

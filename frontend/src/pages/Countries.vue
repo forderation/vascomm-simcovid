@@ -11,29 +11,27 @@
         </mdb-card>
       </mdb-col>
     </mdb-row>
+    <div v-infinite-scroll="loadMore" infinite-scroll-distance="20">
+      <mdb-row class="mt-4">
+        <card-country-case
+          v-for="(country, index) in countryCases"
+          :key="index"
+          :id="country.ID"
+          :nameCountry="country.Country"
+          :countryCode="country.CountryCode"
+          :confirmed="country.TotalConfirmed"
+          :recovered="country.TotalRecovered"
+        ></card-country-case>
+      </mdb-row>
+    </div>
     <div class="mt-4" v-if="!isSummaryLoaded">
       <the-spinner></the-spinner>
     </div>
-    <mdb-row v-else class="mt-4" data-aos="fade-in">
-      <card-country-case
-        v-for="country in countryCases"
-        :key="country.ID"
-        :id="country.ID"
-        :nameCountry="country.Country"
-        :countryCode="country.CountryCode"
-        :confirmed="country.TotalConfirmed"
-        :recovered="country.TotalRecovered"
-        data-aos="fade-up"
-        data-aos-offset="200"
-        data-aos-delay="50"
-        data-aos-duration="1000"
-      ></card-country-case>
-    </mdb-row>
   </mdb-container>
 </template>
 <script>
 import CardCountryCase from "../components/custom-cards/CardCountryCase.vue";
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 import TheSpinner from "../components/TheSpinner.vue";
 
 export default {
@@ -41,14 +39,44 @@ export default {
   name: "Countries",
   data() {
     return {
-      countries: [],
+      limit: 6,
+      busy: this.isSummaryLoaded ? false : true,
     };
   },
   computed: {
-    ...mapGetters(["countryCases", "isSummaryLoaded"]),
+    countryCases() {
+      return this.$store.state.casesModule.countries;
+    },
+    isSummaryLoaded() {
+      return this.$store.getters.isSummaryLoaded;
+    },
+    getError() {
+      const error = this.$store.state.casesModule.error;
+      if (error != null) {
+        this.$toasted.show("Sorry something wrong, please try again!", {
+          theme: "bubble",
+          position: "bottom-center",
+          duration: 5000,
+        });
+      }
+      return error;
+    },
   },
-  async mounted() {
-    this.$store.dispatch("loadCasesWorld");
+  methods: {
+    loadMore() {
+      const payload = {
+        start: this.countryCases.length,
+        end: this.countryCases.length + this.limit,
+      };
+      this.$store.dispatch("loadCountries", payload);
+    },
+  },
+  mounted() {
+    this.loadMore();
+  },
+  beforeRouteLeave(_, _2, next) {
+    this.$store.commit("resetStateCountries");
+    next();
   },
 };
 </script>

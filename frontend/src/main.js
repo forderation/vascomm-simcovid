@@ -1,8 +1,9 @@
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'bootstrap-css-only/css/bootstrap.min.css'
 import 'mdbvue/lib/css/mdb.min.css'
+import 'v-infinite-scroll/dist/v-infinite-scroll.css'
 import * as mdbvue from 'mdbvue'
-import infiniteScroll from "vue-infinite-scroll"
+import infiniteScroll from "vue-infinite-scroll";
 import VueAos from 'vue-aos'
 import VueNumber from 'vue-number-animation'
 import Toasted from 'vue-toasted';
