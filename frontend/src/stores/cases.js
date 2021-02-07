@@ -108,7 +108,6 @@ const casesModule = {
             const startIndex = payload.start
             const endIndex = payload.end
             const maxLength = getters.maxLength
-            console.log(maxLength + "endIndex " + endIndex)
             if ((maxLength === -1 || endIndex <= maxLength) && getters.isSummaryLoaded) {
                 commit('setSummaryLoaded', {status: false})
                 return $axios
