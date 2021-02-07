@@ -11,7 +11,10 @@
         </mdb-card>
       </mdb-col>
     </mdb-row>
-    <mdb-row class="mt-4" data-aos="fade-in">
+    <div class="mt-4" v-if="!isSummaryLoaded">
+      <the-spinner></the-spinner>
+    </div>
+    <mdb-row v-else class="mt-4" data-aos="fade-in">
       <card-country-case
         v-for="country in countryCases"
         :key="country.ID"
@@ -31,20 +34,20 @@
 <script>
 import CardCountryCase from "../components/custom-cards/CardCountryCase.vue";
 import { mapGetters } from "vuex";
+import TheSpinner from "../components/TheSpinner.vue";
 
 export default {
-  components: { CardCountryCase },
+  components: { CardCountryCase, TheSpinner },
   name: "Countries",
   data() {
     return {
-      isLoaded: true,
       countries: [],
     };
   },
   computed: {
-    ...mapGetters(["countryCases"]),
+    ...mapGetters(["countryCases", "isSummaryLoaded"]),
   },
-  mounted() {
+  async mounted() {
     this.$store.dispatch("loadCasesWorld");
   },
 };

@@ -9,17 +9,25 @@ const casesModule = {
             death: [],
             recovered: []
         },
-        countries: []
+        countries: [],
+        isSummaryLoaded: false,
+        statusCode: null
     },
     getters: {
-        summaryCasesWorld: state => {
+        summaryCasesWorld: (state) => {
             return state.summaryCasesWorld;
         },
-        countryCases: state => {
+        countryCases: (state) => {
             return state.countries;
         },
         countryCasesLimit: (state) => (start, end) => {
             return state.countries.slice(start, end)
+        },
+        isSummaryLoaded: (state) => {
+            return state.isSummaryLoaded
+        },
+        statusCode: (state) => {
+            return state.statusCode
         }
     },
     mutations: {
@@ -63,15 +71,26 @@ const casesModule = {
                     count: global.TotalRecovered,
                 },
             ]
+        },
+        setSummaryLoaded(state, payload) {
+            state.isSummaryLoaded = payload.status;
+        },
+        setStatusCode(state, payload) {
+            state.statusCode = payload.status;
         }
     },
     actions: {
         loadCasesWorld({ commit }) {
-            $axios
+            commit('setSummaryLoaded', { status: false })
+            return $axios
                 .get('/cases/summaries')
                 .then(response => response.data)
                 .then(items => {
                     commit('setCasesWorld', items)
+                }).catch(error => {
+                    commit('setStatusCode', { status: error.response.status })
+                }).finally(() => {
+                    commit('setSummaryLoaded', { status: true })
                 })
         }
     },

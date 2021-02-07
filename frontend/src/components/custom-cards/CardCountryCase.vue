@@ -29,7 +29,7 @@
             />
           </mdb-badge>
         </h5>
-        <mdb-btn color="primary" class="m-0 mt-3 w-100"
+        <mdb-btn color="primary" @click="showCountry" class="m-0 mt-3 w-100"
           ><mdb-icon icon="info-circle" /> Details</mdb-btn
         >
       </mdb-card-body>
@@ -60,6 +60,13 @@ export default {
     countryCode: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    showCountry() {
+      this.$router
+        .push({ name: "country", params: { cid: this.countryCode } })
+        .catch(() => {});
     },
   },
 };

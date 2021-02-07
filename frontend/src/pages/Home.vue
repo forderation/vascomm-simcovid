@@ -1,12 +1,6 @@
 <template>
   <mdb-container>
-    <mdb-row v-if="!isLoaded">
-      <mdb-col sm="12" class="text-center">
-        <div class="spinner-border text-danger" role="status">
-          <span class="visually-hidden"></span>
-        </div>
-      </mdb-col>
-    </mdb-row>
+    <the-spinner v-if="!isSummaryLoaded"></the-spinner>
     <div v-else>
       <mdb-row>
         <mdb-col sm="12">
@@ -23,7 +17,15 @@
           </mdb-card>
         </mdb-col>
       </mdb-row>
-      <mdb-row class="mt-4">
+      <mdb-row class="my-4">
+        <custom-chart-summary
+          v-for="chart in dataCharts"
+          :key="chart.title"
+          :title="chart.title"
+          :dataChart="chart.dataChart"
+        ></custom-chart-summary>
+      </mdb-row>
+      <mdb-row class="my-3">
         <mdb-col sm="4">
           <card-case
             :title="'Confirmed Case'"
@@ -51,22 +53,47 @@
 </template>
 <script>
 import CardCase from "../components/custom-cards/CardCase.vue";
+import TheSpinner from "../components/TheSpinner.vue";
+import CustomChartSummary from "../components/custom-charts/CustomChartSummary.vue";
+
 import { mapGetters } from "vuex";
 
 export default {
-  components: { CardCase },
+  components: { CardCase, TheSpinner, CustomChartSummary },
   name: "Home",
   data() {
     return {
-      isLoaded: false,
+      dataCharts: [],
     };
   },
   computed: {
-    ...mapGetters(["summaryCasesWorld"]),
+    ...mapGetters(["summaryCasesWorld", "isSummaryLoaded", "statusCode"]),
   },
-  mounted() {
-    this.$store.dispatch("loadCasesWorld");
-    this.isLoaded = true;
+  methods: {
+    initDataCharts() {
+      const summaryCasesWorld = this.$store.getters.summaryCasesWorld;
+      console.log(summaryCasesWorld);
+      this.dataCharts.push({
+        title: "New Cases",
+        dataChart: {
+          death: summaryCasesWorld.death[0].count,
+          confirmed: summaryCasesWorld.confirmed[0].count,
+          recovered: summaryCasesWorld.recovered[0].count,
+        },
+      });
+      this.dataCharts.push({
+        title: "Total Cases",
+        dataChart: {
+          death: summaryCasesWorld.death[1].count,
+          confirmed: summaryCasesWorld.confirmed[1].count,
+          recovered: summaryCasesWorld.recovered[1].count,
+        },
+      });
+    },
+  },
+  async mounted() {
+    await this.$store.dispatch("loadCasesWorld");
+    this.initDataCharts();
   },
 };
 </script>

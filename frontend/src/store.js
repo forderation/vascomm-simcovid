@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { setStore, getStore, removeItem } from '@/config/utils'
-import casesModule from '@/stores/cases'
+import casesModule from '@/stores/cases.js'
+import countryCaseModule from '@/stores/country-case.js'
 
 Vue.use(Vuex)
 
@@ -9,7 +10,7 @@ const user = getStore('user')
 
 export default new Vuex.Store({
   modules: {
-    casesModule
+    casesModule: casesModule, countryCaseModule: countryCaseModule
   },
   state: {
     loginUser: user,

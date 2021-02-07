@@ -1,4 +1,4 @@
-const {throwError, HttpError} = require("../utils/http-error");
+const { throwError, HttpError } = require("../utils/http-error");
 const axios = require("../utils/base-axios");
 const hDate = require('human-date');
 
@@ -31,12 +31,12 @@ const getSummaryCases = async (req, res, next) => {
         item.HumanDate = hDate.prettyPrint(item.Date);
     })
     res.json({
-        global : globalResp,
-        countries : countries
+        global: globalResp,
+        countries: countries
     });
 }
 
-const getSummaryCaseByCountryId = async(req, res, next) => {
+const getSummaryCaseByCountryId = async (req, res, next) => {
     let countries;
     const cid = req.params.cid;
     try {
@@ -45,15 +45,18 @@ const getSummaryCaseByCountryId = async(req, res, next) => {
     } catch (error) {
         return next(throwError(error));
     }
-    const country = countries.filter((item) => {
-       return item.CountryCode === cid.toUpperCase();
+    let country = countries.filter((item) => {
+        return item.CountryCode === cid.toUpperCase();
     })
-    if(country.length === 0){
+    if (country.length === 0) {
         return next(new HttpError('Cannot find country code', 404));
+    } else {
+        country = country[0];
+        country.HumanDate = hDate.prettyPrint(country.Date);
     }
     res.json({
-        country : country
+        country: country
     });
 }
 
-module.exports = {getCasesByCountryId, getSummaryCases, getSummaryCaseByCountryId}
+module.exports = { getCasesByCountryId, getSummaryCases, getSummaryCaseByCountryId }

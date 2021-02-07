@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from './pages/Login.vue'
-import Home from './pages/Home.vue'
-import Countries from './pages/Countries.vue'
-import Account from './pages/Account.vue'
+import Login from '@/pages/Login.vue'
+import Home from '@/pages/Home.vue'
+import Countries from '@/pages/Countries.vue'
+import Country from '@/pages/CountryDetail.vue'
+import Account from '@/pages/Account.vue'
 
 Vue.use(Router)
 
@@ -24,15 +25,20 @@ const router = new Router({
       component: Home
     },
     {
-      path: '/countries',
-      name: 'countries',
-      component: Countries
-    },
-    {
       path: '/account',
       name: 'account',
       component: Account
     },
+    {
+      path: '/countries',
+      name: 'countries',
+      component: Countries,
+    },
+    {
+      path: '/countries/:cid',
+      name: 'country',
+      component: Country,
+    }
   ]
 })
 

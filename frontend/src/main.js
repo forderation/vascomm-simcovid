@@ -1,19 +1,19 @@
 import '@fortawesome/fontawesome-free/css/all.min.css'
 import 'bootstrap-css-only/css/bootstrap.min.css'
 import 'mdbvue/lib/css/mdb.min.css'
+import * as mdbvue from 'mdbvue'
+import infiniteScroll from "vue-infinite-scroll"
+import VueAos from 'vue-aos'
+import VueNumber from 'vue-number-animation'
+import Toasted from 'vue-toasted';
+
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import GoogleAuth from '@/config/google.js'
-import * as mdbvue from 'mdbvue'
 import VueAxios from 'vue-axios'
 import $axios from '@/config/axios.js'
-import infiniteScroll from "vue-infinite-scroll"
-import VueAos from 'vue-aos'
-import VueNumber from 'vue-number-animation'
-
-
 
 const gauthOption = {
   clientId: process.env.VUE_APP_GAUTH_CLIENT_ID,
@@ -23,6 +23,7 @@ const gauthOption = {
 
 Vue.use(VueAxios, $axios)
 Vue.use(VueAos)
+Vue.use(Toasted)
 Vue.use(VueNumber)
 for (const component in mdbvue) {
   Vue.component(component, mdbvue[component])
