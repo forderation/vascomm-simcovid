@@ -51,15 +51,18 @@ export default {
       return this.$store.getters.isSummaryLoaded;
     },
     getError() {
-      const error = this.$store.state.casesModule.error;
-      if (error != null) {
+      return this.$store.getters.getErrorCountryCase;
+    },
+  },
+  watch: {
+    getError(newError) {
+      if (newError != null) {
         this.$toasted.show("Sorry something wrong, please try again!", {
           theme: "bubble",
           position: "bottom-center",
           duration: 5000,
         });
       }
-      return error;
     },
   },
   methods: {

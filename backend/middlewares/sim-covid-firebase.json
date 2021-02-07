@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "sim-covid",
+  "private_key_id": "c4abd5d0e99040b4a9faff4dec7a86ea6ffc1108",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCsEJuCxzuyFonY\nn4esgOg7aQO3Z8mYQcfq+mwQh2fCgftLwf4d9Ija0PhMyO0LOG6UoE6DPJaHDlhw\n27hyMWicnTNd+tGFQz4pWA968qtrOQYcZRq7BKI/6RSQIlUHx+iYc/Z6Up8ikCcw\ncq9/MGPvTd3enbRE7cDnc04cGRmNUwjGqYjAUWDskpYSoBMSHK4ltrqALGiNYqRC\n7zcsCIGOfOiYk5I/8jtC6XGj3q7kTSlT72YusWP0u7kuOJaCcz+sHCLMk8a5l3+W\nTfKi2VamKOb2U10Lk3K8bqCRqS4+BxvIivUAyusqZCQ1pmn/gjH8mBNuY4FIWQ8a\nqbTEvKLtAgMBAAECggEAB4k0ARalba0BB+TMy2hbQ3ww9npsNj1DT+5R3KjMND+p\nzZfx1PFd1mo/8GpTFM0O7XbWmXbbh49q84kcBfGrXu30+aZqQMeWKbdlTiw3XRst\nQlccmZj1W46OIQCamsb4T/JcQYqW1QEH8Qjvg3GPdEQDy06QPlNEwfOnNcx/oFSH\n12KbLBt/bQpCxOrZjVq5ndiPFCkbrDV3gMvp80POaasz/JSPrWSRY/dOuQihfhPq\n+NK+C9AEgWHq0E3Hhsqd6VwJIHBweDRj6Y0mUir914bVJdRhQBSakOORcGisZ26G\ndgu3rJYEQTpUxcCH1+HmKeRI7HMlAX5FG9CARNvaYQKBgQDqPqf9Xsl2FRVuwXK6\n6159Z3u/tV8dUHdh+kM5/s15b3NiWSXMU16JjSjKSCCOJVSrfjRmaRW6sclPOmP/\n6YxOtkQEah3jq3DpzQk9Njx5d2KS0CoxjPUGPsJOa/VH/77qA0OnNKPVkQ1LEczJ\nLGhc1sU6QlOT5N8Uzk+Lce8xVQKBgQC8C5QH8WvGhh4gKoh7inXcf5rGSQvMzNs7\nENy88fjLKc3E78tWnwzrmt/Wgi5W2Yq54bUI/3xMSqsqKcQiID9S1OiidbRTrB2Y\nrNdvS0IZZeRxpBtl5s3BPDoKns9yDSVFm9HeMibzLiRluRgvbfRmL74z7hH/WQRQ\ngYsPEewLOQKBgQDhB8Y8iwXBEaogV2kPlrOUh4iDeAriz32Qu2o/2b+tTFstfPTp\n4KFuRRSNl1LnG4fGpBxU0dkVHFyHZ1HP9J5cs46OKx+Bqx5zDQ02J9da3UzuO1p9\ndauiD0J9MgtV2qOejfo9ND28GngJyRTRon6zyYN5X2SJLJL+muAh1xdxbQKBgDlc\nMsiFfQGusYvQTZeZscAT8IthhsbvCkSnLR45lVGrq8fR+a2vkIph0LunNClr7GQt\nFELtY+YFtNaErP5X5dkHdvrvepU3YEPNHV4mj8Adk6SSkYTw9XxnObE5pj+9AMyN\n7mOf2r+9KH8bCeSV3sI4+ATxLu48IhPIoDl1lxIJAoGAGTG1mloQ+DoIwH/Jvxms\n0iRGjSa7dN7WV4xNjChj2D7kwpGREtdmWHS3IUp4onSIdCfkElZFI7SQ+MptWTn7\nrUdz7XLFIVv+l/L86SQ7htF8ZmPoh08eTmbO335D3txooJA8Lpj9sks1/rCRQxI6\nTnwMSkiSMbpvOKNc1UP3aUE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-pmfdh@sim-covid.iam.gserviceaccount.com",
+  "client_id": "109271854470446525383",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-pmfdh%40sim-covid.iam.gserviceaccount.com"
+}

@@ -18,7 +18,6 @@ const getCountries = async (req, res, next) => {
     if (query.hasOwnProperty("start") && query.hasOwnProperty("end")) {
         startIndex = parseInt(query.start, 10);
         endIndex = parseInt(query.end, 10);
-        console.log('start : ' + startIndex + " end index: " + endIndex);
         countries = countries.splice(startIndex, startIndex + endIndex);
     }
     res.json({

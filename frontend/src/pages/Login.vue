@@ -15,7 +15,7 @@
         <mdb-card-body>
           <mdb-btn
             class="btn-gplus float-right"
-            @click="loginWithGoogle"
+            @click="firebaseLogin"
             icon="google-plus-g"
             fab
             >Login with google account</mdb-btn
@@ -28,6 +28,9 @@
 
 
 <script>
+import Firebase from "firebase";
+import firebaseConfig from "../config/firebase";
+
 export default {
   name: "Login",
   data() {
@@ -36,21 +39,28 @@ export default {
     };
   },
   methods: {
-    loginWithGoogle() {
-      this.$gAuth
-        .signIn()
-        .then((GoogleUser) => {
-          let userInfo = {
-            loginType: "google",
-            google: GoogleUser,
-          };
-          this.$store.commit("setLoginUser", userInfo);
-          this.$router.push("/home");
-        })
-        .catch((error) => {
-          console.log("error", error);
+    firebaseLogin() {
+      const provider = new Firebase.auth.GoogleAuthProvider();
+      Firebase.auth()
+        .signInWithPopup(provider)
+        .then(async (header) => {
+          await Firebase.auth()
+            .currentUser.getIdToken(true)
+            .then((token) => {
+              let userInfo = {
+                idToken: token,
+                google: header.user,
+              };
+              this.$store.commit("setLoginUser", userInfo);
+              this.$router.push("/home");
+            });
         });
     },
+  },
+  created() {
+    if (!Firebase.apps.length) {
+      this.app = Firebase.initializeApp(firebaseConfig);
+    }
   },
 };
 </script>

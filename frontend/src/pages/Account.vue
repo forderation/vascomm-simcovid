@@ -43,20 +43,11 @@ export default {
       },
     };
   },
-  watch: {
-    profile(newProfile) {
-      return {
-        fullName: newProfile.fullName,
-        email: newProfile.email,
-        imageProfile: newProfile.imageProfile,
-      };
-    },
-  },
   created() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    this.profile.fullName = user.google.Fs.sd;
-    this.profile.email = user.google.Fs.lt;
-    this.profile.imageProfile = user.google.Fs.wI;
+    const user = JSON.parse(localStorage.getItem("user")).google;
+    this.profile.fullName = user.displayName;
+    this.profile.email = user.email;
+    this.profile.imageProfile = user.photoURL;
   },
 };
 </script>

@@ -6,10 +6,10 @@
           <mdb-view>
             <a href="#!">
               <img
-                :src="countryFlag"
-                alt="Card image cap"
-                class="m-auto img-responsive p-5"
-                height="300"
+                  :src="countryFlag"
+                  alt="Card image cap"
+                  class="m-auto img-responsive p-5"
+                  height="300"
               />
               <mdb-mask flex-center waves overlay="white-slight"></mdb-mask>
             </a>
@@ -18,17 +18,17 @@
             <mdb-card-title class="m-4 pl-3">Country {{ getSummary.Country }} Case</mdb-card-title>
             <mdb-row class="m-4">
               <custom-chart-case
-                v-for="chartData in chartSummaryData"
-                :key="chartData.title"
-                :title="chartData.title"
-                :dataChart="chartData.dataChart"
+                  v-for="chartData in chartSummaryData"
+                  :key="chartData.title"
+                  :title="chartData.title"
+                  :dataChart="chartData.dataChart"
               ></custom-chart-case>
             </mdb-row>
             <mdb-container v-if="!getIsLoaded.cases">
               <mdb-line-chart
-                :data="lineChartData"
-                :options="lineChartOptions"
-                :height="400"
+                  :data="lineChartData"
+                  :options="lineChartOptions"
+                  :height="400"
               ></mdb-line-chart>
             </mdb-container>
           </mdb-card-body>
@@ -42,8 +42,9 @@
 <script>
 import CustomChartCase from "../components/custom-charts/CustomChartCase.vue";
 import TheSpinner from "../components/TheSpinner.vue";
+
 export default {
-  components: { TheSpinner, CustomChartCase },
+  components: {TheSpinner, CustomChartCase},
   data() {
     return {
       countryFlag: "",
@@ -120,9 +121,9 @@ export default {
     loadTimeLineChart() {
       const cases = this.$store.getters.getDataChartCases;
       this.countryFlag =
-        "https://purecatamphetamine.github.io/country-flag-icons/3x2/" +
-        this.$route.params.cid +
-        ".svg";
+          "https://cdn.staticaly.com/gh/hampusborgos/country-flags/master/svg/" +
+          this.$route.params.cid +
+          ".svg";
       this.lineChartData = {
         labels: cases.labels,
         datasets: [

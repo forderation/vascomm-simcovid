@@ -1,5 +1,5 @@
-import $axios from '../config/axios';
-import { v4 as uuidv4 } from 'uuid';
+import $axios from '../config/axios'
+import {v4 as uuidv4} from 'uuid'
 
 const casesModule = {
     state: {
@@ -89,35 +89,39 @@ const casesModule = {
         }
     },
     actions: {
-        loadSummaryCases({ commit }) {
-            commit('setSummaryLoaded', { status: false })
+        loadSummaryCases({commit, rootState}) {
+            commit('setSummaryLoaded', {status: false})
             return $axios
-                .get('/cases/summaries')
+                .get('/cases/summaries', {
+                    headers: {Authorization: `Bearer ${rootState.loginUser.idToken}`}
+                })
                 .then(response => response.data)
                 .then(items => {
                     commit('setCasesWorld', items)
                 }).catch(error => {
-                    commit('setError', { status: error })
+                    commit('setError', {status: error})
                 }).finally(() => {
-                    commit('setSummaryLoaded', { status: true })
+                    commit('setSummaryLoaded', {status: true})
                 })
         },
-        loadCountries({ commit, getters }, payload) {
+        loadCountries({commit, getters, rootState}, payload) {
             const startIndex = payload.start
             const endIndex = payload.end
             const maxLength = getters.maxLength
             console.log(maxLength + "endIndex " + endIndex)
             if ((maxLength === -1 || endIndex <= maxLength) && getters.isSummaryLoaded) {
-                commit('setSummaryLoaded', { status: false })
+                commit('setSummaryLoaded', {status: false})
                 return $axios
-                    .get(`/country/countries?start=${startIndex}&end=${endIndex}`)
+                    .get(`/country/countries?start=${startIndex}&end=${endIndex}`, {
+                        headers: {Authorization: `Bearer ${rootState.loginUser.idToken}`}
+                    })
                     .then((response) => response.data)
                     .then((items) => {
                         commit('setCountries', items)
                     }).catch((error) => {
-                        commit('setError', { status: error })
+                        commit('setError', {status: error})
                     }).finally(() => {
-                        commit('setSummaryLoaded', { status: true })
+                        commit('setSummaryLoaded', {status: true})
                     })
             }
 

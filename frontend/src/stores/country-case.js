@@ -1,5 +1,4 @@
-import $axios from '../config/axios';
-// import { v4 as uuidv4 } from 'uuid';
+import $axios from '../config/axios'
 
 const countryCaseModule = {
     state: {
@@ -10,29 +9,26 @@ const countryCaseModule = {
             cases: false,
             summary: false
         },
-        countryCaseStatus: {
-            cases: null,
-            summary: null,
-        }
+        error: null,
     },
     getters: {
         getCases: (state) => {
-            return state.casesCountry;
+            return state.casesCountry
         },
         getCountryCode: (state) => {
-            return state.countryCode;
+            return state.countryCode
         },
         getIsLoadedCase: (state) => {
-            return state.countryIsLoaded.cases;
+            return state.countryIsLoaded.cases
         },
         getIsLoadedSummary: (state) => {
-            return state.countryIsLoaded.summary;
+            return state.countryIsLoaded.summary
         },
-        getCountryCaseStatus: (state) => {
-            return state.countryCaseStatus;
+        getErrorCountryCase: (state) => {
+            return state.error;
         },
         getSummary: (state) => {
-            return state.summary;
+            return state.summary
         },
         getDataChartCases: (state) => {
             const chartData = {
@@ -42,70 +38,68 @@ const countryCaseModule = {
                     recovered: [],
                 },
                 labels: [],
-            };
+            }
             state.casesCountry.forEach(function (itemCase) {
-                chartData.labels.push(itemCase.HumanDate);
-                chartData.datasets.confirmed.push(itemCase.Confirmed);
-                chartData.datasets.deaths.push(itemCase.Deaths);
-                chartData.datasets.recovered.push(itemCase.Recovered);
-            });
+                chartData.labels.push(itemCase.HumanDate)
+                chartData.datasets.confirmed.push(itemCase.Confirmed)
+                chartData.datasets.deaths.push(itemCase.Deaths)
+                chartData.datasets.recovered.push(itemCase.Recovered)
+            })
             return chartData
         }
     },
     mutations: {
         setCases(state, payload) {
-            state.casesCountry = payload;
+            state.casesCountry = payload
         },
         setCountryCode(state, payload) {
-            state.countryCode = payload;
+            state.countryCode = payload
         },
         setSummary(state, payload) {
-            state.summary = payload.country;
+            state.summary = payload.country
         },
         setLoading(state, payload) {
             if (payload.hasOwnProperty('cases')) {
-                state.countryIsLoaded.cases = payload.cases;
+                state.countryIsLoaded.cases = payload.cases
             }
             if (payload.hasOwnProperty('summary')) {
-                state.countryIsLoaded.summary = payload.summary;
+                state.countryIsLoaded.summary = payload.summary
             }
         },
-        setCountryCaseStatus(state, payload) {
-            if (payload.hasOwnProperty('cases')) {
-                state.countryIsLoaded.cases = payload.cases;
-            }
-            if (payload.hasOwnProperty('summary')) {
-                state.countryIsLoaded.summary = payload.summary;
-            }
+        setError(state, payload) {
+            state.error = payload.error
         }
     },
     actions: {
-        loadCase({ commit, getters }) {
-            commit('setLoading', { cases: false })
+        loadCase({commit, getters, rootState}) {
+            commit('setLoading', {cases: false})
             return $axios
-                .get('/country/cases/' + getters.getCountryCode)
+                .get('/country/cases/' + getters.getCountryCode, {
+                    headers: {Authorization: `Bearer ${rootState.loginUser.idToken}`}
+                })
+                .catch(error => {
+                    commit('setError', {error: error})
+                })
                 .then(response => response.data)
                 .then(items => {
                     commit('setCases', items)
                 })
-                .catch(error => {
-                    console.log(error)
-                    commit('setCountryCaseStatus', { cases: error })
-                })
-                .finally(() => commit('setLoading', { cases: true }))
+                .finally(() => commit('setLoading', {cases: true}))
         },
-        loadSummary({ commit, getters }) {
-            commit('setLoading', { summary: false })
+        loadSummary({commit, getters, rootState}) {
+            commit('setLoading', {summary: false})
             return $axios
-                .get('/cases/summary/' + getters.getCountryCode)
+                .get('/cases/summary/' + getters.getCountryCode, {
+                    headers: {Authorization: `Bearer ${rootState.loginUser.idToken}`}
+                })
                 .then(response => response.data)
                 .then(items => {
                     commit('setSummary', items)
                 })
-                .catch(error => {
-                    commit('setCountryCaseStatus', { summary: error })
+                .catch((error) => {
+                    commit('setError', {error: error})
                 })
-                .finally(() => commit('setLoading', { summary: true }))
+                .finally(() => commit('setLoading', {summary: true}))
         }
     },
 }
