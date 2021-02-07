@@ -122,7 +122,7 @@ export default {
       const cases = this.$store.getters.getDataChartCases;
       this.countryFlag =
           "https://cdn.staticaly.com/gh/hampusborgos/country-flags/master/svg/" +
-          this.$route.params.cid +
+          this.$route.params.cid.toLowerCase() +
           ".svg";
       this.lineChartData = {
         labels: cases.labels,
